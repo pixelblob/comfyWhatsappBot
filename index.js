@@ -1,10 +1,9 @@
-const { Client, LocalAuth, Buttons, List, MessageMedia } = require('whatsapp-web.js');
+const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const axios = require("axios")
 const cheerio = require("cheerio");
 const fs = require("fs")
-const { exec } = require('child_process');
-var cowsay = require("cowsay");
+const cowsay = require("cowsay");
 
 console.log("running!")
 
@@ -18,7 +17,6 @@ const client = new Client({
 
 
 client.on('qr', (qr) => {
-    // Generate and scan this code with your phone
     qrcode.generate(qr, { small: true });
 });
 
@@ -50,20 +48,13 @@ client.on("auth_failure", () => {
     console.log("Auth Failure!")
 })
 
-client.on("call", () => {
-    console.log("Incoming Call!")
-})
-
-client.on("disconnected", () => {
-    console.log("Disconnected!")
-})
-
 client.on('loading_screen', (percent, message) => {
     console.log('LOADING SCREEN', percent, message);
 });
 
 client.on("message", async msg => {
     console.log('MESSAGE RECEIVED', msg.body);
+    
     if (msg.body == "!roll") {
         msg.reply("You rolled a: " + (1 + Math.floor(Math.random() * 6)))
     } else if (msg.body.startsWith("!cowsay")) {
