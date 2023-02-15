@@ -1,4 +1,5 @@
 const { Message } = require('whatsapp-web.js');
+const cowsay = require("cowsay");
 
 module.exports = {
     name: 'cowsay',

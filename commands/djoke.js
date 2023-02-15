@@ -1,4 +1,5 @@
 const { Message } = require('whatsapp-web.js');
+const axios = require("axios")
 
 module.exports = {
     name: 'djoke',
