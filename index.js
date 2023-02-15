@@ -65,31 +65,17 @@ client.on("message", async msg => {
 
     if (msg.body.startsWith("!")) {
         var command = commands.find(c => `!${c.name}` == msg.body.split(" ")[0])
+        if (!command) return console.log("COMMAND DOES NOT EXIST: "+msg.body.split(" ")[0])
         try {
             command.execute(msg)
         } catch (error) {
             console.log(error)
         }
-    } else if (msg.body.startsWith("!cowsay")) {
-        msg.reply(`\`\`\`${cowsay.say({ text: msg.body.replace("!cowsay", "") })}\`\`\``)
     } else if (!msg.id.participant) {
         console.log("DM RECIEVED: " + msg.body)
 
         msg.react("🔈")
-
-        var subprocess = spawn("espeak", [msg.body]);
-        var stderr = '';
-        var stdout = '';
-        subprocess.stdout.on('data', function (data) {
-            stdout += data;
-        });
-        subprocess.stderr.on('data', function (data) {
-            stderr += data;
-        });
-        subprocess.on('close', function (exitCode) {
-            console.log('echo: ' + stdout);
-        });
-
+        spawn("espeak", [msg.body]);
     }
 
     var link = msg.body.split(" ").find(s => s.match(/\bhttps?:\/\/(?:m|www|vm)\.tiktok\.com\/\S*?\b(?:(?:(?:usr|v|embed|user|video)\/|\?shareId=|\&item_id=)(\d+)|(?=\w{7})(\w*?[A-Z\d]\w*)(?=\s|\/$))\b/))
