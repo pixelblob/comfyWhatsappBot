@@ -34,7 +34,7 @@ module.exports = {
                     }).then(async req => {
                         const $ = cheerio.load(req.data);
                         var text = $('script#SIGI_STATE').text()
-                        console.log(text)
+                        //console.log(text)
                         var json = JSON.parse(text)
                         console.log(json.ItemList.video.preloadList[0].url);
 
@@ -54,7 +54,7 @@ module.exports = {
                                 msg.reply(media);
                             })
 
-                            console.log(json.ItemList.video.preloadList[0].url);
+                            //console.log(json.ItemList.video.preloadList[0].url);
 
 
                         } catch (err) {
